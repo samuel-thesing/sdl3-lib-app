@@ -5,9 +5,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-project(cmake-lib-app
+project(sdl3-lib-app
     VERSION 1.0.0
-    DESCRIPTION "Basic template for a modern cmake-c++-library with application"
+    DESCRIPTION "Basic template for a modern cmake-c++-sdl3-library with application"
     LANGUAGES CXX
 )
 
