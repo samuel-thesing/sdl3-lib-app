@@ -13,7 +13,7 @@ void Logger::init() {
 	file_sink->set_pattern("[%T] [%l]: %v");
 	sinks.push_back(file_sink);
 
-#ifdef _DEBUG
+#ifndef NDEBUG
 	auto console_sink = std::make_shared<spdlog::sinks::stdout_color_sink_mt>();
 	console_sink->set_pattern("%^[%T] [%l]: %v%$");
 	sinks.push_back(console_sink);
@@ -23,7 +23,7 @@ void Logger::init() {
 		std::make_shared<spdlog::logger>("CORE", sinks.begin(), sinks.end());
 	spdlog::register_logger(logger);
 
-#ifdef _DEBUG
+#ifndef NDEBUG
 	logger->set_level(spdlog::level::trace);
 	logger->flush_on(spdlog::level::trace);
 #else
