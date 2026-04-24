@@ -1,0 +1,8 @@
+.idea/
+.cache/
+cmake-build/
+cmake-build-debug/
+cmake-build-release/
+compile_commands.json
+bin/
+include/mylib/export.h
