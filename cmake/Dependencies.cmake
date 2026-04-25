@@ -11,6 +11,7 @@ FetchContent_Declare(
     GIT_TAG v1.17.0
     GIT_PROGRESS TRUE
     GIT_SHALLOW TRUE
+    SYSTEM
 )
 
 FetchContent_MakeAvailable(spdlog)
@@ -34,6 +35,7 @@ FetchContent_Declare(SDL3
     GIT_TAG release-3.4.4
     GIT_PROGRESS TRUE
     GIT_SHALLOW TRUE
+    SYSTEM
 )
 FetchContent_MakeAvailable(SDL3)
 

@@ -13,11 +13,27 @@ add_executable(${PROJECT_NAME}
 
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR})
 
-target_link_libraries(${PROJECT_NAME} PUBLIC mylib::mylib project_warnings SDL3::SDL3)
+target_link_libraries(${PROJECT_NAME} PUBLIC mylib::mylib project_warnings SDL3::SDL3 spdlog::spdlog)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
-    LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
 )
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:spdlog>
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>
+)
+
+add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        $<TARGET_FILE:SDL3::SDL3>
+        $<TARGET_FILE_DIR:${PROJECT_NAME}>
+)
+
+if (WIN32)
+    set_target_properties(${PROJECT_NAME} PROPERTIES
+        WIN32_EXECUTABLE $<CONFIG:Release>
+    )
+endif()
 

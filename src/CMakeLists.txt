@@ -8,6 +8,7 @@ project(mylib)
 
 set(PROJECT_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 set(PROJECT_BINARY_DIR "${WORKSPACE_BINARY_DIR}")
+set(PROJECT_ARTIFACT_DIR "${WORKSPACE_ARTIFACT_DIR}")
 set(PROJECT_SOURCE_DIR "${PROJECT_DIR}")
 
 add_library(${PROJECT_NAME} ${_lib_type}
@@ -41,18 +42,14 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_include_directories(${PROJECT_NAME} PUBLIC
-    "${spdlog_SOURCE_DIR}/include"
-)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE project_warnings SDL3::SDL3)
+target_link_libraries(${PROJECT_NAME} PRIVATE project_warnings SDL3::SDL3 spdlog::spdlog)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
     LIBRARY_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
-    ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_BINARY_DIR}
+    ARCHIVE_OUTPUT_DIRECTORY ${PROJECT_ARTIFACT_DIR}
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
