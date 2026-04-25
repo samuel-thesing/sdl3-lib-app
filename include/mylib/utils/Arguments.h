@@ -17,6 +17,8 @@ private:
 	std::unordered_map<std::string, std::string> named_args;
 	std::vector<std::string> args;
 
+	int version_major, version_minor, version_patch;
+
 	struct Option {
 		std::string name;
 		std::string description;
@@ -27,26 +29,27 @@ private:
 	std::vector<Option> options;
 
 public:
-	Arguments(const std::string &tool_name);
+	Arguments(std::string tool_name);
 
-	void add_option_flag(std::string name, std::string description,
+	void addOptionFlag(std::string name, std::string description,
 		std::string abbreviation = "");
-	void add_option_named_value(std::string name, std::string value_name,
+	void addOptionNamedValue(std::string name, std::string value_name,
 		std::string description, std::string abbreviation = "");
-	void set_general_description(std::string general_description);
+	void setGeneralDescription(std::string general_description);
 
-	bool parse_args(int argc, char **argv);
+	bool parseArgs(int argc, char **argv);
 
-	void print_help();
+	void printVersion();
+	void printHelp();
 
-	unsigned get_arg_count() const {
+	unsigned getArgCount() const {
 		return static_cast<unsigned>(args.size());
 	}
-	unsigned is_args_empty() const { return args.empty(); }
+	unsigned isArgsEmpty() const { return args.empty(); }
 
-	bool has_named_arg(const std::string &name);
-	std::optional<std::string> get_named_arg(const std::string &name);
-	bool has_flag(const std::string &name);
+	bool hasNamedArg(const std::string &name);
+	std::optional<std::string> getNamedArg(const std::string &name);
+	bool hasFlag(const std::string &name);
 
 	Arguments &operator>>(char &c);
 	Arguments &operator>>(std::string &s);
@@ -55,11 +58,11 @@ public:
 	Arguments &operator>>(float &f);
 	Arguments &operator>>(double &d);
 
-	void remove_flag(const std::string &name);
-	void remove_named_arg(const std::string &name);
-	void clear_flags();
-	void clear_named_args();
-	void clear_args();
+	void removeFlag(const std::string &name);
+	void removeNamedArg(const std::string &name);
+	void clearFlags();
+	void clearNamedArgs();
+	void clearArgs();
 	void clear();
 };
 

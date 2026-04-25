@@ -5,6 +5,15 @@
 Application *createApplication(Arguments args) {
 	UNUSED(args)
 
+	if (args.hasFlag("help")) {
+		args.printHelp();
+		return nullptr;
+	}
+	if (args.hasFlag("version")) {
+		args.printVersion();
+		return nullptr;
+	}
+
 	auto app = Application::create({"sdl-cmake-lib"});
 
 	return app;

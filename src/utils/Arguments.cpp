@@ -4,10 +4,13 @@
 
 #include <algorithm>
 #include <iostream>
+#include <utility>
 
-Arguments::Arguments(const std::string &tool_name) : tool_name(tool_name) {}
+Arguments::Arguments(std::string tool_name)
+	: tool_name(std::move(tool_name)), version_major(MYLIB_VERSION_MAJOR),
+	  version_minor(MYLIB_VERSION_MINOR), version_patch(MYLIB_VERSION_PATCH) {}
 
-void Arguments::add_option_flag(
+void Arguments::addOptionFlag(
 	std::string name, std::string description, std::string abbreviation) {
 	if (abbreviation.empty()) {
 		description = std::format("\t--{}\n\t\t{}\n", name, description);
@@ -18,7 +21,7 @@ void Arguments::add_option_flag(
 	options.emplace_back(name, description, abbreviation);
 }
 
-void Arguments::add_option_named_value(std::string name, std::string value_name,
+void Arguments::addOptionNamedValue(std::string name, std::string value_name,
 	std::string description, std::string abbreviation) {
 	if (abbreviation.empty()) {
 		description =
@@ -30,11 +33,11 @@ void Arguments::add_option_named_value(std::string name, std::string value_name,
 	options.emplace_back(name, description, abbreviation);
 }
 
-void Arguments::set_general_description(std::string general_description) {
+void Arguments::setGeneralDescription(std::string general_description) {
 	this->tool_description = std::move(general_description);
 }
 
-bool Arguments::parse_args(int argc, char **argv) {
+bool Arguments::parseArgs(int argc, char **argv) {
 	int i = 1;
 	bool error_occured = false;
 	while (i < argc) {
@@ -83,7 +86,12 @@ bool Arguments::parse_args(int argc, char **argv) {
 	return !error_occured;
 }
 
-void Arguments::print_help() {
+void Arguments::printVersion() {
+	std::cout << tool_name << " " << version_major << "." << version_minor
+			  << "." << version_patch << std::endl;
+}
+
+void Arguments::printHelp() {
 	std::ranges::sort(options,
 		[](const Option &a, const Option &b) { return a.name < b.name; });
 	std::cout << "SYNOPSIS\n\t" << tool_name
@@ -96,16 +104,16 @@ void Arguments::print_help() {
 	}
 }
 
-bool Arguments::has_named_arg(const std::string &name) {
+bool Arguments::hasNamedArg(const std::string &name) {
 	return named_args.contains(name);
 }
 
-std::optional<std::string> Arguments::get_named_arg(const std::string &name) {
+std::optional<std::string> Arguments::getNamedArg(const std::string &name) {
 	const auto it = named_args.find(name);
 	return it != named_args.end() ? std::optional{it->second} : std::nullopt;
 }
 
-bool Arguments::has_flag(const std::string &name) {
+bool Arguments::hasFlag(const std::string &name) {
 	return flags.contains(name);
 }
 
@@ -194,20 +202,20 @@ Arguments &Arguments::operator>>(double &d) {
 	return *this;
 }
 
-void Arguments::remove_flag(const std::string &name) { flags.erase(name); }
+void Arguments::removeFlag(const std::string &name) { flags.erase(name); }
 
-void Arguments::remove_named_arg(const std::string &name) {
+void Arguments::removeNamedArg(const std::string &name) {
 	named_args.erase(name);
 }
 
-void Arguments::clear_flags() { flags.clear(); }
+void Arguments::clearFlags() { flags.clear(); }
 
-void Arguments::clear_named_args() { named_args.clear(); }
+void Arguments::clearNamedArgs() { named_args.clear(); }
 
-void Arguments::clear_args() { args.clear(); }
+void Arguments::clearArgs() { args.clear(); }
 
 void Arguments::clear() {
-	clear_flags();
-	clear_named_args();
-	clear_args();
+	clearFlags();
+	clearNamedArgs();
+	clearArgs();
 }

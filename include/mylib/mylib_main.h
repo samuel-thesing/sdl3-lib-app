@@ -8,12 +8,28 @@
 #include "mylib/utils/Arguments.h"
 #include "mylib/utils/Logger.h"
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
+
 SDL_AppResult SDL_AppInit(void **_context, int argc, char **argv) {
 	Logger::init();
 
-	auto args = Arguments("sdl-cmake-lib");
+#ifdef WIN32
+	if (AttachConsole(ATTACH_PARENT_PROCESS)) {
+		FILE* fDummy;
+		freopen_s(&fDummy, "CONOUT$", "w", stdout);
+		freopen_s(&fDummy, "CONOUT$", "w", stderr);
+		freopen_s(&fDummy, "CONIN$",  "r", stdin);
+	}
+#endif
 
-	if (!args.parse_args(argc, argv)) {
+	auto args = Arguments("sdl-cmake-lib");
+	args.addOptionFlag("help", "Prints this help.", "h");
+	args.addOptionFlag("version", "Prints the version.", "v");
+
+	if (!args.parseArgs(argc, argv)) {
 		Logger::error("Failed to parse arguments");
 		return SDL_APP_FAILURE;
 	}
@@ -24,6 +40,9 @@ SDL_AppResult SDL_AppInit(void **_context, int argc, char **argv) {
 	}
 
 	auto app = createApplication(args);
+	if (app == nullptr) {
+		return SDL_APP_SUCCESS;
+	}
 
 	*_context = app;
 
