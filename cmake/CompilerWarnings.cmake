@@ -3,6 +3,7 @@ add_library(project_warnings INTERFACE)
 if (MSVC)
     target_compile_options(project_warnings INTERFACE
         /W4 /WX /permissive-
+        /wd4251
     )
 else ()
     target_compile_options(project_warnings INTERFACE

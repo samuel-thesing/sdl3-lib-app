@@ -1,5 +1,7 @@
 #include "mylib/utils/Arguments.h"
 
+#include "mylib/utils/macros.h"
+
 #include <algorithm>
 #include <iostream>
 
@@ -132,8 +134,10 @@ Arguments &Arguments::operator>>(int &i) {
 	try {
 		i = std::stoi(args.front());
 	} catch (const std::invalid_argument &e) {
+		UNUSED(e)
 		Logger::error("Failed to parse integer from '{}'", args.front());
 	} catch (std::out_of_range &e) {
+		UNUSED(e)
 		Logger::error(
 			"Failed to parse integer from '{}'. The number was out of range.",
 			args.front());
@@ -146,8 +150,10 @@ Arguments &Arguments::operator>>(long long &l) {
 	try {
 		l = std::stoll(args.front());
 	} catch (const std::invalid_argument &e) {
+		UNUSED(e)
 		Logger::error("Failed to parse long long from '{}'", args.front());
 	} catch (std::out_of_range &e) {
+		UNUSED(e)
 		Logger::error(
 			"Failed to parse long long from '{}'. The number was out of range.",
 			args.front());
@@ -160,8 +166,10 @@ Arguments &Arguments::operator>>(float &f) {
 	try {
 		f = std::stof(args.front());
 	} catch (const std::invalid_argument &e) {
+		UNUSED(e)
 		Logger::error("Failed to parse float from '{}'", args.front());
 	} catch (std::out_of_range &e) {
+		UNUSED(e)
 		Logger::error(
 			"Failed to parse float from '{}'. The number was out of range.",
 			args.front());
@@ -174,8 +182,10 @@ Arguments &Arguments::operator>>(double &d) {
 	try {
 		d = std::stod(args.front());
 	} catch (const std::invalid_argument &e) {
+		UNUSED(e)
 		Logger::error("Failed to parse double from '{}'", args.front());
 	} catch (std::out_of_range &e) {
+		UNUSED(e)
 		Logger::error(
 			"Failed to parse double from '{}'. The number was out of range.",
 			args.front());
