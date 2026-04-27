@@ -5,6 +5,7 @@
 Application *createApplication(Arguments args) {
 	UNUSED(args)
 
+#if !(defined(WIN32) && (NDEBUG))
 	if (args.hasFlag("help")) {
 		args.printHelp();
 		return nullptr;
@@ -13,6 +14,7 @@ Application *createApplication(Arguments args) {
 		args.printVersion();
 		return nullptr;
 	}
+#endif
 
 	auto app = Application::create({"sdl-cmake-lib"});
 

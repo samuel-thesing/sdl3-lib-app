@@ -12,8 +12,11 @@ SDL_AppResult SDL_AppInit(void **_context, int argc, char **argv) {
 	Logger::init();
 
 	auto args = Arguments("sdl-cmake-lib");
+
+#if !(defined(WIN32) && (NDEBUG))
 	args.addOptionFlag("help", "Prints this help.", "h");
 	args.addOptionFlag("version", "Prints the version.", "v");
+#endif
 
 	if (!args.parseArgs(argc, argv)) {
 		Logger::error("Failed to parse arguments");
