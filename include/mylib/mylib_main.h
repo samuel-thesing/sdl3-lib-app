@@ -55,8 +55,6 @@ SDL_AppResult SDL_AppIterate(void *_app) {
 void SDL_AppQuit(void *_app, SDL_AppResult result) {
 	if (result == SDL_APP_FAILURE) {
 		Logger::error("Exited with error");
-	} else {
-		Logger::trace("Exited successfully");
 	}
 	if (_app == nullptr)
 		return;
