@@ -40,6 +40,8 @@ target_link_options(project_optimizations INTERFACE
     $<$<AND:$<CXX_COMPILER_ID:Clang>,$<CONFIG:Release>>:
     -Wl,--gc-sections
     -flto
+    -fuse-ld=lld
+    -s
     >
 )
 
