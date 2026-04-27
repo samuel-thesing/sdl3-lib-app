@@ -8,25 +8,8 @@
 #include "mylib/utils/Arguments.h"
 #include "mylib/utils/Logger.h"
 
-#ifdef WIN32
-#include <windows.h>
-#endif
-
-
 SDL_AppResult SDL_AppInit(void **_context, int argc, char **argv) {
 	Logger::init();
-
-#ifdef WIN32
-	if (AttachConsole(ATTACH_PARENT_PROCESS)) {
-		FILE* fDummy;
-		freopen_s(&fDummy, "CONOUT$", "w", stdout);
-		freopen_s(&fDummy, "CONOUT$", "w", stderr);
-		freopen_s(&fDummy, "CONIN$",  "r", stdin);
-
-		setvbuf(stdout, nullptr, _IOLBF, 0);
-		setvbuf(stderr, nullptr, _IOLBF, 0);
-	}
-#endif
 
 	auto args = Arguments("sdl-cmake-lib");
 	args.addOptionFlag("help", "Prints this help.", "h");
