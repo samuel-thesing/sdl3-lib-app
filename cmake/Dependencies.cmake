@@ -1,6 +1,6 @@
 include(FetchContent)
 
-set(FETCHCONTENT_QUIET OFF)
+set(FETCHCONTENT_QUIET OFF) # for showing git clone progress and other
 
 # ==============================================================================
 # spdlog
@@ -18,7 +18,6 @@ set_target_properties(spdlog PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 # ==============================================================================
 # SDL3
-
 set(SDL_TESTS OFF CACHE BOOL "" FORCE)
 set(SDL_EXAMPLES OFF CACHE BOOL "" FORCE)
 

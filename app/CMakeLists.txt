@@ -1,5 +1,3 @@
-
-
 project(app)
 
 set(PROJECT_DIR "${CMAKE_CURRENT_SOURCE_DIR}")

@@ -1,3 +1,4 @@
+# adds error on warning and all warnings
 add_library(project_warnings INTERFACE)
 
 target_compile_options(project_warnings INTERFACE
@@ -15,6 +16,7 @@ target_compile_options(project_warnings INTERFACE
     >
 )
 
+# adds optimizations on release
 add_library(project_optimizations INTERFACE)
 target_compile_options(project_optimizations INTERFACE
     $<$<AND:$<CXX_COMPILER_ID:MSVC>,$<CONFIG:Release>>:
