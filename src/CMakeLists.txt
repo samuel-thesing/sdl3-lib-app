@@ -43,7 +43,12 @@ target_include_directories(${PROJECT_NAME}
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE project_warnings SDL3::SDL3 spdlog::spdlog)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    project_warnings
+    project_optimizations
+    SDL3::SDL3
+    spdlog::spdlog
+)
 
 target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_23)
 

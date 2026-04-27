@@ -89,6 +89,7 @@ bool Arguments::parseArgs(int argc, char **argv) {
 void Arguments::printVersion() {
 	std::cout << tool_name << " " << version_major << "." << version_minor
 			  << "." << version_patch << std::endl;
+	std::this_thread::sleep_for(std::chrono::milliseconds(500));
 }
 
 void Arguments::printHelp() {
@@ -102,6 +103,7 @@ void Arguments::printHelp() {
 	for (const auto &opt : options) {
 		std::cout << opt.description << std::endl;
 	}
+	std::this_thread::sleep_for(std::chrono::milliseconds(500));
 }
 
 bool Arguments::hasNamedArg(const std::string &name) {

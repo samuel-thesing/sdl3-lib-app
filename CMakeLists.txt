@@ -12,8 +12,8 @@ project(sdl3-lib-app
 )
 
 set(WORKSPACE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-set(WORKSPACE_BINARY_DIR "${WORKSPACE_DIR}/bin/${CMAKE_BUILD_TYPE}")
-set(WORKSPACE_ARTIFACT_DIR "${WORKSPACE_DIR}/bin-int/${CMAKE_BUILD_TYPE}")
+set(WORKSPACE_BINARY_DIR "${WORKSPACE_DIR}/bin/${CMAKE_SYSTEM_NAME}-${CMAKE_BUILD_TYPE}")
+set(WORKSPACE_ARTIFACT_DIR "${WORKSPACE_DIR}/bin-int/${CMAKE_SYSTEM_NAME}-${CMAKE_BUILD_TYPE}")
 
 # prevent installation to system directory
 set(CMAKE_INSTALL_PREFIX "${WORKSPACE_BINARY_DIR}" CACHE INTERNAL "")
@@ -21,7 +21,7 @@ set(CMAKE_INSTALL_PREFIX "${WORKSPACE_BINARY_DIR}" CACHE INTERNAL "")
 option(BUILD_SHARED "Build lib as shared" ON)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-include(CompilerWarnings)
+include(Options)
 include(Dependencies)
 
 add_subdirectory(src)

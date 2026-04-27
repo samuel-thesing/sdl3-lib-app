@@ -24,7 +24,9 @@ Application::Application(const Config &config) {
 	Logger::trace("Finished initializing application");
 }
 
-Application::~Application() {}
+Application::~Application() {
+	SDL_DestroyWindow(window);
+}
 
 void Application::onEvent(SDL_Event *event) {
 	if (event->type == SDL_EVENT_QUIT) {

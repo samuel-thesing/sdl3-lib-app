@@ -4,7 +4,6 @@ set(FETCHCONTENT_QUIET OFF)
 
 # ==============================================================================
 # spdlog
-
 FetchContent_Declare(
     spdlog
     GIT_REPOSITORY https://github.com/gabime/spdlog.git
@@ -15,6 +14,7 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(spdlog)
+set_target_properties(spdlog PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 # ==============================================================================
 # SDL3

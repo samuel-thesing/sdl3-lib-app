@@ -22,6 +22,9 @@ SDL_AppResult SDL_AppInit(void **_context, int argc, char **argv) {
 		freopen_s(&fDummy, "CONOUT$", "w", stdout);
 		freopen_s(&fDummy, "CONOUT$", "w", stderr);
 		freopen_s(&fDummy, "CONIN$",  "r", stdin);
+
+		setvbuf(stdout, nullptr, _IOLBF, 0);
+		setvbuf(stderr, nullptr, _IOLBF, 0);
 	}
 #endif
 
