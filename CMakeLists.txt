@@ -25,4 +25,28 @@ include(Options)
 include(Dependencies)
 
 add_subdirectory(src)
-add_subdirectory(app)
+
+# windows can't correctly reattach the console if the subsystem is "WINDOWS" (exits early in console)
+# => build second executable on windows with subsystem console
+if (WIN32 AND CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(APP_TARGET_NAME "app_gui")
+    set(APP_SUBSYSTEM "WIN32")
+    set(APP_EXECUTABLE_NAME "app")
+    set(APP_DEFINES "APP_GUI")
+    add_subdirectory(app app-gui)
+
+    set(APP_TARGET_NAME "app_console")
+    set(APP_SUBSYSTEM "")
+    set(APP_EXECUTABLE_NAME "app_console")
+    set(APP_DEFINES "APP_CONSOLE")
+    add_subdirectory(app app-console)
+
+    add_custom_target(app DEPENDS app_gui app_console)
+
+else ()
+    set(APP_TARGET_NAME "app")
+    set(APP_SUBSYSTEM "")
+    set(APP_EXECUTABLE_NAME "app")
+    set(APP_DEFINES "APP_CONSOLE")
+    add_subdirectory(app)
+endif ()

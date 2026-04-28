@@ -5,7 +5,7 @@
 Application *createApplication(Arguments args) {
 	UNUSED(args)
 
-#if !(defined(WIN32) && (NDEBUG))
+#if APP_CONSOLE
 	if (args.hasFlag("help")) {
 		args.printHelp();
 		return nullptr;

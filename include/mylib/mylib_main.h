@@ -13,7 +13,7 @@ SDL_AppResult SDL_AppInit(void **_context, int argc, char **argv) {
 
 	auto args = Arguments("sdl-cmake-lib");
 
-#if !(defined(WIN32) && (NDEBUG))
+#ifdef APP_CONSOLE
 	args.addOptionFlag("help", "Prints this help.", "h");
 	args.addOptionFlag("version", "Prints the version.", "v");
 #endif
